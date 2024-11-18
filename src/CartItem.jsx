@@ -18,20 +18,20 @@ const CartItem = ({ onContinueShopping }) => {
     return totalAmount;
   };
 
-  const handleContinueShopping = (e) => {
-    setShowCart(false);
-};
+    const handleContinueShopping = (e) => {
+        setShowCart(false);
+    };
 
-return (
-    <div>
-        {showCart ? (
-            <ShoppingCart onContinueShopping={handleContinueShopping} />
-        ) : (
-            <PlantListing onViewCart={() => setShowCart(true)} />
-        )}
-    </div>
-);
-  };
+        return (
+            <div>
+                {showCart ? (
+                    <ShoppingCart onContinueShopping={handleContinueShopping} />
+                ) : (
+                    <PlantListing onViewCart={() => setShowCart(true)} />
+                )}
+            </div>
+        );
+};
 
   const handleCheckoutShopping = (e) => {
     alert('Functionality to be added for future reference');
