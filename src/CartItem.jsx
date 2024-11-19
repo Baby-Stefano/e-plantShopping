@@ -9,50 +9,39 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
-    let totalAmount = 0;
-
-    cartItems.forEach(item => {
-        totalAmount += item.quantity * parseFloat(item.cost.replace('$', ''));
+    let totalCost = 0;
+    
+    cart.forEach((item) => {
+        totalCost += item.quantity * parseInt(item.cost.replace("$", ""));
     });
-
-    return totalAmount;
+    console.log(totalCost);
+    return totalCost;
   };
-
-    const handleContinueShopping = (e) => {
-        setShowCart(false);
-    };
-
-        return (
-            <div>
-                {showCart ? (
-                    <ShoppingCart onContinueShopping={handleContinueShopping} />
-                ) : (
-                    <PlantListing onViewCart={() => setShowCart(true)} />
-                )}
-            </div>
-        );
-};
-
-  const handleCheckoutShopping = (e) => {
-    alert('Functionality to be added for future reference');
+  
+  const handleContinueShopping = (e) => { 
+    e.preventDefault();
+    onContinueShopping(); 
   };
 
   const handleIncrement = (item) => {
-    dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }));
+    dispatch(updateQuantity(
+        { name: item.name, quantity: item.quantity + 1 }));  
   };
 
   const handleDecrement = (item) => {
-    if (item.quantity > 1) {
-        dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }));
+    if (item.quantity > 1) { 
+        dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 })); 
+    } 
+    else { dispatch(removeItem(item.name)); }
   };
 
   const handleRemove = (item) => {
-    dispatch(removeItem(item));
+    dispatch(removeItem(item.name));  
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-    return item.quantity * item.cost;
+    return item.quantity * parseInt(item.cost.replace("$", ""));
   };
 
   return (
@@ -78,7 +67,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+      <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
         <button className="get-started-button1">Checkout</button>
       </div>
@@ -87,5 +76,4 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
 export default CartItem;
-
 
